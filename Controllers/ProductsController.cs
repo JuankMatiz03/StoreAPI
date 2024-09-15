@@ -29,7 +29,7 @@ namespace StoreAPI.Controllers
                 if (products == null || !products.Any())
                 {
                     _logger.LogWarning("****NO PRODUCTS FOUND****");
-                    return StatusCode(404, new 
+                    return StatusCode(400, new 
                     { 
                         Message = "No products found",
                         Data = new List<Product>()  
@@ -46,7 +46,7 @@ namespace StoreAPI.Controllers
             catch (Exception ex) 
             {
                 _logger.LogError(ex, "****AN ERROR OCCURRED WHILE GETTING ALL PRODUCTS****");
-                return StatusCode(400, new 
+                return StatusCode(500, new 
                 { 
                     Message = "An error occurred while getting all products",
                     Error = ex.Message 
@@ -63,7 +63,7 @@ namespace StoreAPI.Controllers
                 if (product == null)
                 {
                     _logger.LogWarning("****PRODUCT WITH ID {ProductId} NOT FOUND****", id);
-                    return StatusCode(404, new 
+                    return StatusCode(400, new 
                     {
                         Message = $"Product with ID {id} not found",
                         Data = new List<Product>() 
@@ -80,7 +80,7 @@ namespace StoreAPI.Controllers
             catch (Exception ex) 
             {
                 _logger.LogError(ex, "****AN ERROR OCCURRED WHILE GETTING PRODUCT WITH ID {ProductId}****", id);
-                return StatusCode(400, new 
+                return StatusCode(500, new 
                 { 
                     Message = "An error occurred while getting product",
                     Error = ex.Message 
@@ -103,7 +103,7 @@ namespace StoreAPI.Controllers
                 if (existingProduct != null)
                 {
                     _logger.LogWarning("****PRODUCT WITH NAME {ProductName} ALREADY EXISTS****", product.Name);
-                    return BadRequest(new 
+                    return StatusCode(400, new 
                     {
                         Message = $"Product with name '{product.Name}' already exists."
                     });
@@ -113,7 +113,10 @@ namespace StoreAPI.Controllers
                 if (category == null)
                 {
                     _logger.LogWarning("****CATEGORY WITH ID {CategoryId} NOT FOUND****", product.CategoryId);
-                    return BadRequest("Category not found");
+                    return StatusCode(400, new 
+                    {
+                        Message = "Category not found"
+                    });
                 }
 
                 await _repository.CreateProductsAsync(product);
@@ -127,7 +130,7 @@ namespace StoreAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "****AN ERROR OCCURRED WHILE CREATING THE PRODUCT****");
-                return StatusCode(400, new 
+                return StatusCode(500, new 
                 { 
                     Message = "An error occurred while creating the product",
                     Error = ex.Message 
@@ -185,7 +188,7 @@ namespace StoreAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "****AN ERROR OCCURRED WHILE UPDATING PRODUCT WITH ID {ProductId}****", id);
-                return StatusCode(400, new 
+                return StatusCode(500, new 
                 { 
                     Message = "An error occurred while updating the product",
                     Error = ex.Message 
@@ -202,7 +205,7 @@ namespace StoreAPI.Controllers
                 if (product == null) 
                 {
                     _logger.LogWarning("****PRODUCT WITH ID {ProductId} NOT FOUND****", id);
-                    return StatusCode(404, new 
+                    return StatusCode(400, new 
                     {
                         Message = $"Product with ID {id} not found",
                         Data = new List<Product>() 
@@ -219,7 +222,7 @@ namespace StoreAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "****AN ERROR OCCURRED WHILE DELETING PRODUCT WITH ID {ProductId}****", id);
-                return StatusCode(400, new 
+                return StatusCode(500, new 
                 { 
                     Message = "An error occurred while deleting the product",
                     Error = ex.Message 

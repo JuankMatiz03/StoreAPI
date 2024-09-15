@@ -31,7 +31,7 @@ namespace StoreAPI.Controllers
                 if (categories == null || !categories.Any())
                 {
                     _logger.LogWarning("****NO CATEGORIES FOUND.****");
-                    return StatusCode(404, new 
+                    return StatusCode(400, new 
                     { 
                         Message = "No Categories found",
                         Data = new List<Category>()  
@@ -48,7 +48,7 @@ namespace StoreAPI.Controllers
             catch (Exception ex) 
             {
                 _logger.LogError(ex, "****AN ERROR OCCURRED WHILE GETTING ALL CATEGORIES.****");
-                return StatusCode(400, new 
+                return StatusCode(500, new 
                 { 
                     Message = "An error occurred while getting all categories",
                     Error = ex.Message 
@@ -65,7 +65,7 @@ namespace StoreAPI.Controllers
                 if (category == null) 
                 {
                     _logger.LogWarning("****CATEGORY WITH ID {CategoryId} NOT FOUND****", id);
-                    return StatusCode(404, new 
+                    return StatusCode(400, new 
                     {
                         Message = $"Category with ID {id} not found",
                         Data = new List<Category>() 
@@ -82,7 +82,7 @@ namespace StoreAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "****AN ERROR OCCURRED WHILE GETTING CATEGORY WITH ID {CategoryId}****", id);
-                return StatusCode(400, new 
+                return StatusCode(500, new 
                 { 
                     Message = "An error occurred while getting the category",
                     Error = ex.Message 
@@ -98,14 +98,17 @@ namespace StoreAPI.Controllers
                 if (category == null)
                 {
                     _logger.LogWarning("****CATEGORY OBJECT IS NULL****");
-                    return BadRequest("Category object is null");
+                    return StatusCode(400, new 
+                    { 
+                        Message = "Category object is null",
+                    });
                 }
 
                 var existingCategory = await _repository.GetCategoryByNameAsync(category.Name);
                 if (existingCategory != null)
                 {
                     _logger.LogWarning("****CATEGORY WITH NAME {CategoryName} ALREADY EXISTS****", category.Name);
-                    return BadRequest(new 
+                    return StatusCode(400, new 
                     { 
                         Message = $"Category with name '{category.Name}' already exists.",
                     });
@@ -122,7 +125,7 @@ namespace StoreAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "****AN ERROR OCCURRED WHILE CREATING THE CATEGORY****");
-                return StatusCode(400, new 
+                return StatusCode(500, new 
                 { 
                     Message = "An error occurred while creating the category",
                     Error = ex.Message 
@@ -149,7 +152,7 @@ namespace StoreAPI.Controllers
                 if (existingCategory == null) 
                 {
                     _logger.LogWarning("****CATEGORY WITH ID {CategoryId} NOT FOUND****", id);
-                    return StatusCode(404, new 
+                    return StatusCode(400, new 
                     {
                         Message = $"Category with ID {id} not found",
                         Data = new List<Category>() 
@@ -166,7 +169,7 @@ namespace StoreAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "****AN ERROR OCCURRED WHILE UPDATING CATEGORY WITH ID {CategoryId}****", id);
-                return StatusCode(400, new 
+                return StatusCode(500, new 
                 { 
                     Message = "An error occurred while updating the category",
                     Error = ex.Message 
@@ -183,7 +186,7 @@ namespace StoreAPI.Controllers
                 if (category == null) 
                 {
                     _logger.LogWarning("****CATEGORY WITH ID {CategoryId} NOT FOUND****", id);
-                    return StatusCode(404, new 
+                    return StatusCode(400, new 
                     {
                         Message = $"Category with ID {id} not found",
                         Data = new List<Category>() 
@@ -200,7 +203,7 @@ namespace StoreAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "****AN ERROR OCCURRED WHILE DELETING CATEGORY WITH ID {CategoryId}****", id);
-                return StatusCode(400, new 
+                return StatusCode(500, new 
                 { 
                     Message = "An error occurred while deleting the category",
                     Error = ex.Message 
