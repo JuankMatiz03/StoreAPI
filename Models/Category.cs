@@ -1,7 +1,7 @@
 namespace StoreAPI.Models
 {
     /// <summary>
-    /// Represents a Category.
+    /// Represents a Category
     /// </summary>
     public class Category
     {
@@ -9,5 +9,4 @@ namespace StoreAPI.Models
         public required string Name { get; set; }
         public List<Product> Products { get; set; } = new();
     }
-
 }

@@ -3,7 +3,7 @@ namespace StoreAPI.Repositories
     using StoreAPI.Models;
 
     /// <summary>
-    /// Interface for managing Product data operations.
+    /// Interface for managing Product data operations
     /// </summary>
     public interface IProductRepository
     {

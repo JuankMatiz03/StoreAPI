@@ -1,7 +1,10 @@
-using StoreAPI.Models;
-
 namespace StoreAPI.Repositories
 {
+    using StoreAPI.Models;
+
+    /// <summary>
+    /// Interface for managing Wishlist data operations
+    /// </summary>
     public interface IWishlistRepository
     {
         Task<Wishlist> GetWishlistByNameAsync(string name);

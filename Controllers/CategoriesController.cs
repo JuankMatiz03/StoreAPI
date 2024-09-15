@@ -15,12 +15,21 @@ namespace StoreAPI.Controllers
         private readonly ICategoryRepository _repository;
         private readonly ILogger<CategoryController> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CategoryController"/> class
+        /// </summary>
+        /// <param name="repository">The category repository</param>
+        /// <param name="logger">The logger</param>
         public CategoryController(ICategoryRepository repository, ILogger<CategoryController> logger)
         {
             _repository = repository;
             _logger = logger;
         }
 
+        /// <summary>
+        /// Retrieves all categories
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation with a collection of categories</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
@@ -56,6 +65,11 @@ namespace StoreAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Retrieves a category by its ID
+        /// </summary>
+        /// <param name="id">The ID of the category</param>
+        /// <returns>A task that represents the asynchronous operation with the category if found</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Category>> GetCategoryById(int id)
         {
@@ -90,6 +104,11 @@ namespace StoreAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a new category
+        /// </summary>
+        /// <param name="category">The category to create</param>
+        /// <returns>A task that represents the asynchronous operation with the created category</returns>
         [HttpPost]
         public async Task<ActionResult<Category>> CreateCategory([FromBody] Category category)
         {
@@ -133,6 +152,12 @@ namespace StoreAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates an existing category
+        /// </summary>
+        /// <param name="id">The ID of the category to update</param>
+        /// <param name="category">The updated category information</param>
+        /// <returns>A task that represents the asynchronous operation indicating the outcome of the operation</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCategory(int id, [FromBody] Category category)
         {
@@ -177,6 +202,11 @@ namespace StoreAPI.Controllers
             } 
         }
 
+        /// <summary>
+        /// Deletes a category by its ID
+        /// </summary>
+        /// <param name="id">The ID of the category to delete</param>
+        /// <returns>A task that represents the asynchronous operation indicating the outcome of the operation</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
@@ -212,4 +242,3 @@ namespace StoreAPI.Controllers
         }
     }
 }
-

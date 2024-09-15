@@ -12,6 +12,12 @@ namespace StoreAPI.Controllers
         private readonly ICategoryRepository _categoryRepository;
         private readonly ILogger<ProductsController> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductsController"/> class
+        /// </summary>
+        /// <param name="repository">The product repository</param>
+        /// <param name="categoryRepository">The category repository</param>
+        /// <param name="logger">The logger</param>
         public ProductsController(IProductRepository repository, ICategoryRepository categoryRepository, ILogger<ProductsController> logger)
         {
             _repository = repository;
@@ -19,6 +25,10 @@ namespace StoreAPI.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Retrieves all products
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation with a collection of products</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
@@ -54,6 +64,11 @@ namespace StoreAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Retrieves a product by its ID
+        /// </summary>
+        /// <param name="id">The ID of the product</param>
+        /// <returns>A task that represents the asynchronous operation with the product if found</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProductById(int id)
         {
@@ -88,6 +103,11 @@ namespace StoreAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a new product
+        /// </summary>
+        /// <param name="product">The product to create</param>
+        /// <returns>A task that represents the asynchronous operation with the created product</returns>
         [HttpPost]
         public async Task<ActionResult<Product>> CreateProduct([FromBody] Product product)
         {
@@ -96,7 +116,10 @@ namespace StoreAPI.Controllers
                 if (product == null)
                 {
                     _logger.LogWarning("****PRODUCT OBJECT IS NULL****");
-                    return BadRequest("Product object is null");
+                    return StatusCode(400, new 
+                    {
+                        Message = "Product object is null"
+                    });
                 }
 
                 var existingProduct = await _repository.GetProductByNameAsync(product.Name);
@@ -138,6 +161,12 @@ namespace StoreAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates an existing product
+        /// </summary>
+        /// <param name="id">The ID of the product to update</param>
+        /// <param name="product">The updated product information</param>
+        /// <returns>A task that represents the asynchronous operation indicating the outcome of the operation</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct(int id, [FromBody] Product product)
         {
@@ -196,6 +225,11 @@ namespace StoreAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes a product by its ID
+        /// </summary>
+        /// <param name="id">The ID of the product to delete</param>
+        /// <returns>A task that represents the asynchronous operation indicating the outcome of the operation</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {

@@ -1,7 +1,7 @@
 namespace StoreAPI.Models
 {
     /// <summary>
-    /// Entidad intermedia para Wishlist y Product.
+    /// Intermediate entity for Wishlist and Product
     /// </summary>
     public class WishlistProduct
     {

@@ -12,6 +12,12 @@ namespace StoreAPI.Controllers
         private readonly IProductRepository _productRepository;
         private readonly ILogger<WishlistsController> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WishlistsController"/> class
+        /// </summary>
+        /// <param name="wishlistRepository">The wishlist repository</param>
+        /// <param name="productRepository">The product repository</param>
+        /// <param name="logger">The logger</param>
         public WishlistsController(
             IWishlistRepository wishlistRepository,
             IProductRepository productRepository,
@@ -23,6 +29,11 @@ namespace StoreAPI.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Retrieves a wishlist by its name
+        /// </summary>
+        /// <param name="name">The name of the wishlist</param>
+        /// <returns>A task that represents the asynchronous operation indicating the outcome of the operation</returns>
         [HttpGet("{name}")]
         public async Task<IActionResult> GetWishlistByName(string name)
         {
@@ -56,6 +67,10 @@ namespace StoreAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Retrieves all wishlists
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation indicating the outcome of the operation</returns>
         [HttpGet]
         public async Task<IActionResult> GetAllWishlists()
         {
@@ -91,6 +106,11 @@ namespace StoreAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a new wishlist
+        /// </summary>
+        /// <param name="wishlist">The wishlist to create</param>
+        /// <returns>A task that represents the asynchronous operation indicating the outcome of the operation</returns>
         [HttpPost]
         public async Task<ActionResult> CreateWishlist([FromBody] Wishlist wishlist)
         {
@@ -136,6 +156,12 @@ namespace StoreAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Adds a product to a wishlist
+        /// </summary>
+        /// <param name="wishlistName">The name of the wishlist</param>
+        /// <param name="productId">The ID of the product</param>
+        /// <returns>A task that represents the asynchronous operation indicating the outcome of the operation</returns>
         [HttpPost("{wishlistName}/products/{productId}")]
         public async Task<ActionResult> AddProductToWishlist(string wishlistName, int productId)
         {
@@ -191,6 +217,12 @@ namespace StoreAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Removes a product from a wishlist
+        /// </summary>
+        /// <param name="wishlistName">The name of the wishlist</param>
+        /// <param name="productId">The ID of the product</param>
+        /// <returns>A task that represents the asynchronous operation indicating the outcome of the operation</returns>
         [HttpDelete("{wishlistName}/products/{productId}")]
         public async Task<ActionResult> RemoveProductFromWishlist(string wishlistName, int productId)
         {
@@ -221,6 +253,11 @@ namespace StoreAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes a wishlist by its name
+        /// </summary>
+        /// <param name="name">The name of the wishlist to delete</param>
+        /// <returns>A task that represents the asynchronous operation indicating the outcome of the operation</returns>
         [HttpDelete("{name}")]
         public async Task<IActionResult> DeleteWishlist(string name)
         {

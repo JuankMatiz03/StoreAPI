@@ -4,14 +4,14 @@ using StoreAPI.Models;
 namespace StoreAPI.Data
 {
     /// <summary>
-    /// Represents the application's database context.
+    /// Represents the applications database context
     /// </summary>
     public class AppDbContext : DbContext
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AppDbContext"/> class.
+        /// Initializes a new instance of the <see cref="AppDbContext"/> class
         /// </summary>
-        /// <param name="options">The options to configure the context.</param>
+        /// <param name="options">The options to configure the context</param>
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<Product> Products { get; set; }
@@ -21,11 +21,9 @@ namespace StoreAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configura la clave compuesta en la entidad intermedia WishlistProduct
             modelBuilder.Entity<WishlistProduct>()
                 .HasKey(wp => new { wp.WishlistId, wp.ProductId });
 
-            // Configura la relación de muchos a muchos entre Wishlist y Product
             modelBuilder.Entity<WishlistProduct>()
                 .HasOne(wp => wp.Wishlist)
                 .WithMany(w => w.WishlistProducts)

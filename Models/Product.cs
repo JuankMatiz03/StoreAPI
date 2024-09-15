@@ -1,7 +1,7 @@
 namespace StoreAPI.Models
 { 
     /// <summary>
-    /// Represents a Product.
+    /// Represents a Product
     /// </summary>
     public class Product
     {

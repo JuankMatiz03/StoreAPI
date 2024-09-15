@@ -54,7 +54,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// Aplica la política CORS
 app.UseCors("AllowAll");
 
 app.UseAuthorization();

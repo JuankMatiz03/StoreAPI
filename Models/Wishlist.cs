@@ -1,5 +1,8 @@
 namespace StoreAPI.Models
 {
+    /// <summary>
+    /// Represents a Wishlist
+    /// </summary>
     public class Wishlist
     {
         public int Id { get; set; }

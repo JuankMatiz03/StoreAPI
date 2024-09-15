@@ -3,7 +3,7 @@ namespace StoreAPI.Repositories
     using StoreAPI.Models;
 
     /// <summary>
-    /// Interface for managing Category data operations.
+    /// Interface for managing Category data operations
     /// </summary>
     public interface ICategoryRepository
     {
